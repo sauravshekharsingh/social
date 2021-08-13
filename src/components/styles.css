@@ -322,12 +322,15 @@ nav .nav-menu-btn {
   .posts {
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    margin: 0 auto;
   }
 
   .post {
     justify-content: center;
-    width: 95%;
+    width: 90%;
   }
 
   .post .actions .action {
