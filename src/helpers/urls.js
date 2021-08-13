@@ -1,4 +1,4 @@
-const API_ROOT = 'http://localhost:8000/api';
+const API_ROOT = 'https://social-db.herokuapp.com/api';
 
 export const APIUrls = {
   addFriend: (userId) => `${API_ROOT}/friends/add?userId=${userId}`,
