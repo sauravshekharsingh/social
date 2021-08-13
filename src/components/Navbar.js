@@ -144,46 +144,76 @@ class Navbar extends React.Component {
         {showMenu && (
           <div className="nav-menu">
             <div className="nav-menu-list">
-              <div className="nav-menu-listitem">
-                <Link
-                  to={`/users/${user.id}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ marginRight: 10, width: 150 }}
-                    onClick={this.hideMenu}
-                  >
-                    <div className="user">
-                      <Avatar style={{ width: 24, height: 24 }}></Avatar>
-                      <p>{user.name}</p>
-                    </div>
-                  </Button>
-                </Link>
-              </div>
-              <div className="nav-menu-listitem">
-                <Link to="/friends" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ marginRight: 10, width: 150 }}
-                    onClick={this.hideMenu}
-                  >
-                    Friends
-                  </Button>
-                </Link>
-              </div>
-              <div className="nav-menu-listitem">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.logout}
-                  style={{ marginRight: 10, width: 150 }}
-                >
-                  <ExitToAppIcon></ExitToAppIcon>Log Out
-                </Button>
-              </div>
+              {isLoggedIn && (
+                <div>
+                  <div className="nav-menu-listitem">
+                    <Link
+                      to={`/users/${user.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ marginRight: 10, width: 150 }}
+                        onClick={this.hideMenu}
+                      >
+                        <div className="user">
+                          <Avatar style={{ width: 24, height: 24 }}></Avatar>
+                          <p>{user.name}</p>
+                        </div>
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="nav-menu-listitem">
+                    <Link to="/friends" style={{ textDecoration: "none" }}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ marginRight: 10, width: 150 }}
+                        onClick={this.hideMenu}
+                      >
+                        Friends
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="nav-menu-listitem">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={this.logout}
+                      style={{ marginRight: 10, width: 150 }}
+                    >
+                      <ExitToAppIcon></ExitToAppIcon>Log Out
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {!isLoggedIn && (
+                <div>
+                  <div className="nav-menu-listitem">
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={this.hideMenu}
+                      >
+                        <VpnKeyIcon></VpnKeyIcon>Login
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="nav-menu-listitem">
+                    <Link to="/signup" style={{ textDecoration: "none" }}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={this.hideMenu}
+                      >
+                        <AccountBoxIcon></AccountBoxIcon>Sign Up
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
