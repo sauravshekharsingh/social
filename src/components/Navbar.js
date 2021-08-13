@@ -1,22 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { logoutUser } from '../actions/user';
-import { searchProfile } from '../actions/search';
-import { Avatar, Button, TextField } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import HomeIcon from '@material-ui/icons/Home';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import MenuIcon from '@material-ui/icons/Menu';
+import { logoutUser } from "../actions/user";
+import { searchProfile } from "../actions/search";
+import { Avatar, Button, TextField } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import MenuIcon from "@material-ui/icons/Menu";
 
 class Navbar extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchText: '',
+      searchText: "",
       showMenu: false,
     };
   }
@@ -28,7 +28,7 @@ class Navbar extends React.Component {
   }
 
   logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     this.props.dispatch(logoutUser());
   };
 
@@ -49,11 +49,10 @@ class Navbar extends React.Component {
     const results = this.props.search.results;
     const { showSearchResults } = this.props.search;
     const { showMenu } = this.state;
-    console.log('SHOW MENU', showMenu);
 
     return (
       <nav>
-        <Link to="/" style={{ textDecoration: 'none' }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <h2>SOCIAL</h2>
         </Link>
         {isLoggedIn && (
@@ -79,7 +78,7 @@ class Navbar extends React.Component {
                 {results.map((result) => (
                   <Link
                     to={`/users/${result._id}`}
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: "none" }}
                   >
                     <div className="search-results-row">
                       <Avatar style={{ marginRight: 10 }}></Avatar>
@@ -94,7 +93,7 @@ class Navbar extends React.Component {
         <div className="nav-links">
           {isLoggedIn && (
             <div className="nav-actions">
-              <Link to="/" style={{ textDecoration: 'none' }}>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <Button variant="contained" color="primary">
                   <HomeIcon></HomeIcon>Home
                 </Button>
@@ -102,7 +101,7 @@ class Navbar extends React.Component {
             </div>
           )}
           {isLoggedIn && (
-            <Link to={`/users/${user.id}`} style={{ textDecoration: 'none' }}>
+            <Link to={`/users/${user.id}`} style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
                 color="secondary"
@@ -118,14 +117,14 @@ class Navbar extends React.Component {
           {!isLoggedIn && (
             <div className="nav-actions">
               <div>
-                <Link to="/login" style={{ textDecoration: 'none' }}>
+                <Link to="/login" style={{ textDecoration: "none" }}>
                   <Button variant="contained" color="secondary">
                     <VpnKeyIcon></VpnKeyIcon>Login
                   </Button>
                 </Link>
               </div>
               <div>
-                <Link to="/signup" style={{ textDecoration: 'none' }}>
+                <Link to="/signup" style={{ textDecoration: "none" }}>
                   <Button variant="contained" color="secondary">
                     <AccountBoxIcon></AccountBoxIcon>Sign Up
                   </Button>
@@ -148,7 +147,7 @@ class Navbar extends React.Component {
               <div className="nav-menu-listitem">
                 <Link
                   to={`/users/${user.id}`}
-                  style={{ textDecoration: 'none' }}
+                  style={{ textDecoration: "none" }}
                 >
                   <Button
                     variant="contained"
@@ -164,7 +163,7 @@ class Navbar extends React.Component {
                 </Link>
               </div>
               <div className="nav-menu-listitem">
-                <Link to="/friends" style={{ textDecoration: 'none' }}>
+                <Link to="/friends" style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     color="primary"
