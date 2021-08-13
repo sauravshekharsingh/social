@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
 
 * {
   margin: 0;
@@ -8,7 +8,7 @@
 
 body {
   background-color: lavender;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 nav {
@@ -305,6 +305,10 @@ nav .nav-menu-btn {
 
   nav .nav-menu .nav-menu-list .nav-menu-listitem .user p {
     margin-left: 10px;
+  }
+
+  .form {
+    width: 90%;
   }
 
   .sidebar {
