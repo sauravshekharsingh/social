@@ -7,16 +7,6 @@ Social Media Web Application built using React and Redux as the state management
 
 This project is deployed on https://social-frontend.herokuapp.com/
 
-  
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`MONGO_URI`
-
-`JWT_SECRET`
-
-  
 ## Features
 
 - Login / Signup (using JWT Authentication)
