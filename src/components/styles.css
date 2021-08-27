@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 
 * {
   margin: 0;
@@ -8,336 +8,59 @@
 
 body {
   background-color: lavender;
-  font-family: "Roboto", sans-serif;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  box-shadow: 0 1px 10px grey;
-  margin-bottom: 20px;
-}
-
-nav .nav-links {
-  display: flex;
-  align-items: center;
-}
-
-nav .nav-links .nav-actions {
-  display: flex;
-  align-items: center;
-}
-
-nav .nav-links div {
-  margin-right: 4px;
-}
-
-nav .nav-links .user {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-nav .search-container {
-  position: relative;
-}
-
-nav .search-container .search-results {
-  position: absolute;
-  background-color: white;
-  width: 100%;
-  margin: 4px 0;
-  border-radius: 4px;
-  z-index: 1;
-}
-
-nav .search-container .search-results .search-results-row {
-  display: flex;
-  align-items: center;
-  padding: 6px;
-}
-
-nav .search-container .search-results .search-results-row img {
-  margin-right: 10px;
-}
-
-nav .nav-menu-btn {
-  display: none;
-}
-
-.content {
-  display: flex;
+  font-family: 'Roboto', sans-serif;
 }
 
 .main {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
+  margin-top: 10px;
 }
 
-.form {
-  width: 40%;
-  border-radius: 4px;
-  padding: 20px;
-  border: 2px solid navy;
+.home,
+.friends,
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .home {
-  display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.post {
-  background-color: white;
-  margin: 20px 0;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 2px 5px 5px lightgray;
-  width: 600px;
-}
-
-.post .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.post .header .delete-post {
-  margin: 10px 10px 0 0;
-}
-
-.post .header .delete-post:hover {
-  cursor: pointer;
-}
-
-.post .header .author {
-  display: flex;
-  align-items: center;
-}
-
-.post .header .author > div {
-  margin-left: 10px;
-}
-
-.post .header > div .time {
-  color: grey;
-  font-weight: 300;
-  font-size: 12px;
-}
-
-.post .body {
-  margin: 14px 0;
-}
-
-.post .actions .stats {
-  display: flex;
-  margin: 10px 0;
-  justify-content: space-between;
-}
-
-.post .actions .action {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  border-radius: 20px;
-  transition: 0.2s all;
-}
-
-.post .actions .action:hover {
-  background-color: lightgray;
-  cursor: pointer;
-}
-
-.post .actions .action p {
-  margin-left: 10px;
-}
-
-.post .actions .stats > p {
-  margin-right: 10px;
-}
-
-.post .actions .stats img {
-  width: 20px;
-  margin-right: 6px;
-  cursor: pointer;
-}
-
-.post .comment-container {
-  font-size: 14px;
-}
-
-.post .comment-container .comment {
-  margin: 10px 0;
-  padding: 10px;
-  background-color: lightskyblue;
-  border-radius: 4px;
-}
-
-.post .comment-container .comment .comment-author {
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
-}
-
-.post .comment-container .comment .comment-author .comment-author-name {
-  margin-left: 10px;
-}
-
-.post .comment-container .comment .comment-content {
-  margin-left: 34px;
 }
 
 .profile {
-  width: 600px;
-  background-color: white;
-  border-radius: 4px;
-  padding: 20px;
-  text-align: center;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  align-items: flex-start;
 }
 
-.profile .avatar {
+.profile-card {
+  margin: 10px;
+}
+
+.compose,
+.posts,
+.profile-card,
+.friends-card {
+  width: 40%;
+}
+
+.profile-card .user-info > div {
   margin: 10px 0;
 }
 
-.profile .user-info {
-  text-align: left;
-  font-size: 20px;
-}
-
-.profile .user-info > div {
-  margin: 20px 0;
-}
-
-.profile .user-info .user-info-label {
+.profile-card-label {
   color: grey;
-}
-
-.sidebar {
-  flex: 0.3;
-}
-
-.sidebar .sidebar-list .sidebar-list-item {
-  display: flex;
-  align-items: center;
-  margin: 5px;
-  padding: 25px 20px;
-  border-radius: 4px;
-  height: 40px;
-}
-
-.sidebar .sidebar-list .sidebar-list-item:hover {
-  cursor: pointer;
-  background-color: lightgray;
-}
-
-.sidebar .sidebar-list .sidebar-list-item span {
-  margin-left: 10px;
-}
-
-.friends {
-  width: 90%;
-}
-
-.friend-listitem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  box-shadow: 2px 5px 5px lightgray;
-  width: 100%;
-  padding: 10px;
   margin: 10px 0;
-  border-radius: 4px;
-}
-
-.friend-listitem .friend-detail {
-  display: flex;
-  align-items: center;
-}
-
-.friend-listitem .friend-detail p {
-  margin-left: 10px;
 }
 
 @media only screen and (max-width: 768px) {
-  nav {
-    width: 100%;
-  }
-
-  nav .nav-menu-btn {
-    display: block;
-  }
-
-  nav .nav-links {
-    display: none;
-  }
-
-  nav .nav-menu .nav-menu-list {
-    position: absolute;
-    background-color: lightblue;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  nav .nav-menu .nav-menu-list .nav-menu-listitem {
-    margin: 10px 0;
-  }
-
-  nav .nav-menu .nav-menu-list .nav-menu-listitem .user {
-    display: flex;
-  }
-
-  nav .nav-menu .nav-menu-list .nav-menu-listitem .user p {
-    margin-left: 10px;
-  }
-
-  .form {
-    width: 90%;
-  }
-
-  .sidebar {
-    display: none;
-  }
-
-  .main {
-    width: 100%;
-  }
-
-  .posts {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-  }
-
-  .post {
-    justify-content: center;
-    width: 90%;
-  }
-
-  .post .actions .action {
-    padding: 0;
+  .compose,
+  .posts,
+  .profile-card,
+  .friends-card {
+    width: 95%;
   }
 
   .profile {
-    width: 90%;
+    flex-direction: column;
+    align-items: center;
   }
 }

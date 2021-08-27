@@ -1,27 +1,26 @@
-// import { CircularProgress } from '@material-ui/core';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Post from './Post';
 
-class PostsList extends React.Component {
-  render() {
-    const { postsList } = this.props.posts;
+export default function PostsList() {
+  const posts = useSelector((state) => state.posts);
 
-    return (
-      <div className="posts">
-        {/* {inProgress && <CircularProgress color="secondary" />} */}
-        {postsList.map((post) => (
-          <Post post={post} key={post._id}></Post>
-        ))}
-      </div>
-    );
-  }
+  const { postsList } = posts;
+  const location = window.location.pathname.substr(1, 5);
+  const userId = location === 'users' ? window.location.pathname.substr(7) : '';
+
+  return (
+    <div className="posts">
+      {postsList.map((post) => {
+        if (location === 'users') {
+          if (post.createdBy._id === userId) {
+            return <Post post={post} key={post._id}></Post>;
+          }
+        } else {
+          return <Post post={post} key={post._id}></Post>;
+        }
+        return null;
+      })}
+    </div>
+  );
 }
-
-function mapStateToProps(state) {
-  return {
-    posts: state.posts,
-  };
-}
-
-export default connect(mapStateToProps)(PostsList);

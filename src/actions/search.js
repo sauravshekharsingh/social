@@ -1,16 +1,16 @@
-import { APIUrls } from '../helpers/urls';
-import { getAuthTokenFromLocalStorage } from '../helpers/utils';
-import { FETCH_PROFILE_SUCCESS, SEARCH_PROFILE_SUCCESS } from './actionTypes';
-import { fetchFriends } from './friend';
+import { APIUrls } from "../helpers/urls";
+import { getAuthTokenFromLocalStorage } from "../helpers/utils";
+import { FETCH_PROFILE_SUCCESS, SEARCH_PROFILE_SUCCESS } from "./actionTypes";
+import { fetchFriends } from "./friend";
 
 export function fetchUserProfile(userId) {
   return (dispatch) => {
     dispatch(fetchFriends());
     const url = APIUrls.fetchUserProfile(userId);
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
     };
@@ -37,9 +37,9 @@ export function searchProfile(searchText) {
   return (dispatch) => {
     const url = APIUrls.searchProfile(searchText);
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
     };

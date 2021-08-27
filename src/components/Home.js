@@ -1,61 +1,60 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import PostsList from './PostsList';
 import { createPost, fetchPosts } from '../actions/posts';
 import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: '',
-    };
-  }
+export default function Home() {
+  const [content, setContent] = useState('');
 
-  componentDidMount() {
-    this.props.dispatch(fetchPosts());
-  }
+  const dispatch = useDispatch();
 
-  handleSubmit = (event) => {
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { content } = this.state;
-    this.props.dispatch(createPost(content));
+    dispatch(createPost(content));
   };
 
-  render() {
-    return (
-      <div className="home">
-        <div className="create-post-form">
-          <form>
-            <TextField
-              multiline
-              rows={5}
-              id="outlined-basic"
-              label="Compose"
-              variant="outlined"
-              name="content"
-              placeholder="What's on your mind?"
-              onChange={(event) =>
-                this.setState({ content: event.target.value })
-              }
-              style={{ width: 400 }}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              onClick={this.handleSubmit}
-            >
-              Post
-            </Button>
-          </form>
-        </div>
-        <PostsList></PostsList>
-      </div>
-    );
-  }
+  return (
+    <div className="home">
+      <Card className={`compose`}>
+        <CardContent>
+          <TextField
+            multiline
+            rows={5}
+            id="outlined-basic"
+            label="Compose"
+            variant="outlined"
+            name="content"
+            onChange={(e) => setContent(e.target.value)}
+            style={{ width: '100%' }}
+          />
+        </CardContent>
+        <CardActions
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Button
+            variant="outlined"
+            color="primary"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Post
+          </Button>
+        </CardActions>
+      </Card>
+      <PostsList></PostsList>
+    </div>
+  );
 }
-
-export default connect()(Home);

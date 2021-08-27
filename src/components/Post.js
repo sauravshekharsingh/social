@@ -1,161 +1,193 @@
-import React from 'react';
-import { connect } from 'react-redux';
-
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import { formatDate } from '../helpers/utils';
-import { createComment, likePost, unlikePost } from '../actions/posts';
-import { TextField, Avatar, Button } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  createComment,
+  deletePost,
+  likePost,
+  unlikePost,
+} from '../actions/posts';
+import { Button, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import CommentIcon from '@material-ui/icons/Comment';
-import ShareIcon from '@material-ui/icons/Share';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { deletePost } from '../actions/posts';
 
-class Post extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comment: '',
-    };
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+  comment: {
+    margin: 10,
+  },
+  commentInput: {
+    width: '70%',
+  },
+  commentButton: {
+    width: '30%',
+  },
+}));
+
+export default function Post({ post }) {
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
+  const [comment, setComment] = useState('');
+  const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  let isUserAuthor = false;
+  if (post.createdBy._id === auth.user.id) {
+    isUserAuthor = true;
   }
 
-  handleLike = () => {
-    const { _id: postId } = this.props.post;
-    this.props.dispatch(likePost('Post', postId));
-  };
-
-  handleUnlike = () => {
-    const { _id: postId } = this.props.post;
-    this.props.dispatch(unlikePost('Post', postId));
-  };
-
-  handleDelete = () => {
-    const { _id: postId } = this.props.post;
-    this.props.dispatch(deletePost(postId));
-  };
-
-  handleComment = (event) => {
-    event.preventDefault();
-    const { comment } = this.state;
-    const { _id: postId } = this.props.post;
-
-    this.props.dispatch(createComment(comment, postId));
-  };
-
-  render() {
-    const { post } = this.props;
-    const { user } = this.props.auth;
-
-    let isLikedByUser = false;
-    post.likes.map((like) => {
-      if (user && like.createdBy._id === user.id) {
-        isLikedByUser = true;
-      }
-      return '';
-    });
-
-    let isUserAuthor = false;
-    if (post.createdBy._id === user.id) {
-      isUserAuthor = true;
+  let isLikedByUser = false;
+  post.likes.map((like) => {
+    if (auth.user && like.createdBy._id === auth.user.id) {
+      isLikedByUser = true;
     }
+    return '';
+  });
 
-    return (
-      <div className="post">
-        <div className="header">
-          <div className="author">
-            <Avatar></Avatar>
-            <div>
-              <Link
-                to={`/users/${post.createdBy._id}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <p>{post.createdBy.name}</p>
-              </Link>
-              <p className="time">{formatDate(post.createdAt)}</p>
-            </div>
-          </div>
-          {isUserAuthor && (
-            <div className="delete-post" onClick={this.handleDelete}>
-              <DeleteIcon></DeleteIcon>
-            </div>
+  const handleLike = () => {
+    dispatch(likePost('Post', post._id));
+  };
+
+  const handleUnlike = () => {
+    dispatch(unlikePost('Post', post._id));
+  };
+
+  const handleComment = (e) => {
+    dispatch(createComment(comment, post._id));
+    setComment('');
+  };
+
+  const handleDelete = () => {
+    dispatch(deletePost(post._id));
+  };
+
+  return (
+    <Card className={classes.root}>
+      <CardHeader
+        avatar={<Avatar className={classes.avatar}></Avatar>}
+        action={
+          isUserAuthor && (
+            <IconButton aria-label="settings" onClick={handleDelete}>
+              <DeleteOutlinedIcon />
+            </IconButton>
+          )
+        }
+        title={
+          <Link to={`/users/${post.createdBy._id}`}>{post.createdBy.name}</Link>
+        }
+        subheader={formatDate(post.createdAt)}
+      />
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {post.content}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <div
+          className="action"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          {!isLikedByUser && (
+            <IconButton onClick={handleLike}>
+              <ThumbUpAltOutlinedIcon />
+            </IconButton>
           )}
+          {isLikedByUser && (
+            <IconButton onClick={handleUnlike}>
+              <ThumbUpIcon />
+            </IconButton>
+          )}
+          <Typography>{post.likes.length} Likes</Typography>
         </div>
-        <div className="body">
-          <p>{post.content}</p>
-        </div>
-        <div className="actions">
-          <div className="stats">
-            {!isLikedByUser && (
-              <div className="action" onClick={this.handleLike}>
-                <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon>
-                <p>{post.likes.length} Likes</p>
-              </div>
-            )}
-            {isLikedByUser && (
-              <div className="action" onClick={this.handleUnlike}>
-                <ThumbUpAltIcon></ThumbUpAltIcon>
-                <p>{post.likes.length} Likes</p>
-              </div>
-            )}
-            <div className="action">
-              <CommentIcon></CommentIcon>
-              <p>{post.comments.length} Comments</p>
-            </div>
-            <div
-              className="action"
-              onClick={() =>
-                window.open(`https://wa.me/?text=${post.content}`, '_blank')
-              }
-            >
-              <ShareIcon></ShareIcon>
-              <p>Share</p>
-            </div>
-          </div>
-          <div className="comment-container">
-            {post.comments.map((comment) => (
-              <div className="comment" key={comment._id}>
-                <div className="comment-author">
-                  <Avatar style={{ width: 24, height: 24 }}></Avatar>
-                  <span className="comment-author-name">
-                    {comment.createdBy.name}
-                  </span>
-                </div>
-                <div className="comment-content">
-                  <span>{comment.content}</span>
-                </div>
-              </div>
-            ))}
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+        >
+          <CommentOutlinedIcon />
+        </IconButton>
+        <Typography>{post.comments.length} Comments</Typography>
+        <IconButton
+          onClick={() =>
+            window.open(`https://wa.me/?text=${post.content}`, '_blank')
+          }
+        >
+          <ShareOutlinedIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Card className={classes.comment}>
+          <CardContent>
             <TextField
               label="Comment"
               variant="outlined"
               name="content"
-              onChange={(event) =>
-                this.setState({ comment: event.target.value })
-              }
+              onChange={(e) => setComment(e.target.value)}
               size="small"
-              style={{ width: 200 }}
+              className={classes.commentInput}
             />
             <Button
               variant="contained"
               color="primary"
               type="submit"
-              onClick={this.handleComment}
-              style={{ marginLeft: 10 }}
+              onClick={handleComment}
+              className={classes.commentButton}
             >
               Comment
             </Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+          </CardContent>
+          {post.comments.map((comment) => (
+            <CardHeader
+              avatar={<Avatar className={classes.avatar}></Avatar>}
+              title={comment.createdBy.name}
+              subheader={comment.content}
+              key={comment._id}
+            />
+          ))}
+        </Card>
+      </Collapse>
+    </Card>
+  );
 }
-
-function mapStateToProps(state) {
-  return {
-    auth: state.auth,
-  };
-}
-
-export default connect(mapStateToProps)(Post);
