@@ -5,7 +5,7 @@ Social Media Web Application built using React and Redux as the state management
 
 ## Deployment
 
-This project is deployed on https://social-frontend.herokuapp.com/
+This project is deployed on https://social-web-appl.herokuapp.com/
 
 ## Features
 
