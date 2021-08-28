@@ -2,6 +2,7 @@
 # Social Media App using React and Redux
 
 Social Media Web Application built using React and Redux as the state management tool.
+Social Media API (https://github.com/sauravshekharsingh/social-api) serves as the backend of the Web App.
 
 ## Screenshots
 
