@@ -10,6 +10,9 @@ Social Media API (https://github.com/sauravshekharsingh/social-api) serves as th
 
 ![image](https://user-images.githubusercontent.com/62594900/131206485-0bf2369b-d43b-4482-b287-04ccf4bfe415.png)
 
+![Feed](https://user-images.githubusercontent.com/62594900/177154212-4cc8c2d3-ad92-46d1-8d6e-3da8d7306cd6.png)
+
+![Profile](https://user-images.githubusercontent.com/62594900/177154227-5535e581-0d20-4118-8cd5-4a7420988073.png)
 
 ## Deployment
 
